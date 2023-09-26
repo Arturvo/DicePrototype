@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(DieRollManager), typeof(Rigidbody))]
+[RequireComponent(typeof(DieRollController), typeof(Rigidbody))]
 public class DieRandomRoller : MonoBehaviour
 {
     [Tooltip("Roll strength will be picked randomly within this range.")]
@@ -10,7 +10,7 @@ public class DieRandomRoller : MonoBehaviour
     [Tooltip("Vertical angle of deviation from Vector3.forward(0,0,1) will be picked randomly within this range.")]
     [SerializeField] private Vector2 verticalAngleRange = new Vector2(10f, 30f);
 
-    private DieRollManager dieRollManager;
+    private DieRollController dieRollController;
     private Rigidbody dieRigidBody;
     private Vector3 rollStartPosition;
     private Transform transformCashed;
@@ -19,13 +19,13 @@ public class DieRandomRoller : MonoBehaviour
     {
         transformCashed = transform;
         rollStartPosition = transformCashed.position;
-        dieRollManager = GetComponent<DieRollManager>();
+        dieRollController = GetComponent<DieRollController>();
         dieRigidBody = GetComponent<Rigidbody>();
     }
 
     public void RollDie()
     {
-        if (dieRollManager.IsDieRolling) return;
+        if (dieRollController.IsDieRolling) return;
 
         transformCashed.position = rollStartPosition;
         transformCashed.rotation = Random.rotation;
@@ -33,7 +33,7 @@ public class DieRandomRoller : MonoBehaviour
         Vector3 rollDirection = GetRandomDirection();
         float rollStrength = Random.Range(rollStrengthRange.x, rollStrengthRange.y);
 
-        dieRollManager.StartRolling();
+        dieRollController.StartRolling();
         dieRigidBody.AddForce(rollDirection * rollStrength, ForceMode.Impulse);
     }
 

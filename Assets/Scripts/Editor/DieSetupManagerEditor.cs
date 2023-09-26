@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(DieSetupManager))]
+[CustomEditor(typeof(DieSetup))]
 public class DieSetupManagerEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -10,7 +10,7 @@ public class DieSetupManagerEditor : Editor
 
         base.OnInspectorGUI();
 
-        DieSetupManager dieSetupManager = (DieSetupManager)target;
+        DieSetup dieSetupManager = (DieSetup)target;
         if (GUILayout.Button("Create side number"))
         {
             dieSetupManager.CreateSideNumber();

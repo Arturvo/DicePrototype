@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(DieRollManager), typeof(Rigidbody))]
+[RequireComponent(typeof(DieRollController), typeof(Rigidbody))]
 public class DieDragAndDrop : MonoBehaviour
 {
     [SerializeField] private float dragStrength = 15f;
@@ -13,7 +13,7 @@ public class DieDragAndDrop : MonoBehaviour
     [SerializeField] private float minDistanceFromBorder = 1.5f;
 
     private float clickPoisitionDepth;
-    private DieRollManager dieRollManager;
+    private DieRollController dieRollController;
     private Rigidbody dieRigidBody;
     private Transform transformCashed;
     private bool isDieDragged;
@@ -21,7 +21,7 @@ public class DieDragAndDrop : MonoBehaviour
 
     private void Awake()
     {
-        dieRollManager = GetComponent<DieRollManager>();
+        dieRollController = GetComponent<DieRollController>();
         dieRigidBody = GetComponent<Rigidbody>();
         desktopBorderLayerMask = 1 << desktopBorderLayerIndex;
         transformCashed = transform;
@@ -29,7 +29,7 @@ public class DieDragAndDrop : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (dieRollManager.IsDieRolling) return;
+        if (dieRollController.IsDieRolling) return;
 
         isDieDragged = true;
         clickPoisitionDepth = Camera.main.WorldToScreenPoint(transformCashed.position).z;
@@ -37,11 +37,11 @@ public class DieDragAndDrop : MonoBehaviour
 
     void OnMouseUp()
     {
-        bool isRollValid = isDieDragged && !dieRollManager.IsDieRolling && dieRigidBody.velocity.magnitude > minVelocityToRoll;
+        bool isRollValid = isDieDragged && !dieRollController.IsDieRolling && dieRigidBody.velocity.magnitude > minVelocityToRoll;
 
         if (isRollValid) 
         {
-            dieRollManager.StartRolling();
+            dieRollController.StartRolling();
         }
 
         isDieDragged = false;
@@ -49,7 +49,7 @@ public class DieDragAndDrop : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (!isDieDragged || dieRollManager.IsDieRolling) return;
+        if (!isDieDragged || dieRollController.IsDieRolling) return;
 
         Vector3 targetPosition = CalculateTargetDragPosition();
         Vector3 dieVelocity = CalculateDieVelocity(targetPosition);

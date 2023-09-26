@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class DieSideNumberManager : MonoBehaviour
+public class DieSideNumber : MonoBehaviour
 {
     [SerializeField] private TextMeshPro numberText;
     [SerializeField] private int number;
@@ -48,6 +48,6 @@ public class DieSideNumberManager : MonoBehaviour
     private void UpdateNumber()
     {
         numberText.text = $"{numberPrefix}{number}{numberSufix}";
-        gameObject.name = DieSetupManager.sideNumberNamePrefix + number;
+        gameObject.name = DieSetup.sideNumberNamePrefix + number;
     }
 }

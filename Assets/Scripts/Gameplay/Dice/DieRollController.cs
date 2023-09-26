@@ -2,8 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(DieSetupManager), typeof(Rigidbody))]
-public class DieRollManager : MonoBehaviour
+[RequireComponent(typeof(DieSetup), typeof(Rigidbody))]
+public class DieRollController : MonoBehaviour
 {
     [Tooltip("A roll can only be completed after this time has passed since it started.")]
     [SerializeField] private float minRollTime = 0.1f;
@@ -16,7 +16,7 @@ public class DieRollManager : MonoBehaviour
     public bool IsDieRolling { get => isDieRolling; }
     public int TotalRollResultSum { get => totalRollResultSum; }
 
-    private DieSetupManager dieSetupManager;
+    private DieSetup dieSetup;
     private Rigidbody dieRigidBody;
     private bool isDieRolling;
     private bool didMinRollTimePass;
@@ -24,7 +24,7 @@ public class DieRollManager : MonoBehaviour
 
     private void Awake()
     {
-        dieSetupManager = GetComponent<DieSetupManager>();
+        dieSetup = GetComponent<DieSetup>();
         dieRigidBody = GetComponent<Rigidbody>();
     }
 
@@ -60,9 +60,9 @@ public class DieRollManager : MonoBehaviour
 
     private int GetRollResult()
     {
-        DieSideNumberManager topNumber = null;
+        DieSideNumber topNumber = null;
 
-        foreach (DieSideNumberManager sideNumber in dieSetupManager.SideNumbers)
+        foreach (DieSideNumber sideNumber in dieSetup.SideNumbers)
         {
             if (topNumber == null || sideNumber.Position.y > topNumber.Position.y)
             {

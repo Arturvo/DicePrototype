@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RollResultsUI : MonoBehaviour
 {
-    [SerializeField] private DieRollManager dieRollManager;
+    [SerializeField] private DieRollController dieRollController;
     [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private TextMeshProUGUI totalText;
     [SerializeField] private string resultTextPrefix = "Result:";
@@ -13,20 +13,20 @@ public class RollResultsUI : MonoBehaviour
 
     private void OnEnable()
     {
-        dieRollManager.DieStartedRolling += OnRollStarted;
-        dieRollManager.DieStoppedRolling += OnRollFinished;
+        dieRollController.DieStartedRolling += OnRollStarted;
+        dieRollController.DieStoppedRolling += OnRollFinished;
     }
 
     private void Start()
     {
         resultText.text = $"{resultTextPrefix} {resultEmptySymbol}";
-        totalText.text = $"{totalTextPrefix} {dieRollManager.TotalRollResultSum}";
+        totalText.text = $"{totalTextPrefix} {dieRollController.TotalRollResultSum}";
     }
 
     private void OnDisable()
     {
-        dieRollManager.DieStartedRolling -= OnRollStarted;
-        dieRollManager.DieStoppedRolling -= OnRollFinished;
+        dieRollController.DieStartedRolling -= OnRollStarted;
+        dieRollController.DieStoppedRolling -= OnRollFinished;
     }
 
     private void OnRollStarted()
@@ -37,6 +37,6 @@ public class RollResultsUI : MonoBehaviour
     private void OnRollFinished(int result)
     {
         resultText.text = $"{resultTextPrefix} {result}";
-        totalText.text = $"{totalTextPrefix} {dieRollManager.TotalRollResultSum}";
+        totalText.text = $"{totalTextPrefix} {dieRollController.TotalRollResultSum}";
     }
 }

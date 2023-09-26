@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(DieSideNumberManager))]
+[CustomEditor(typeof(DieSideNumber))]
 public class DieSideNumberManagerEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -10,7 +10,7 @@ public class DieSideNumberManagerEditor : Editor
 
         base.OnInspectorGUI();
 
-        DieSideNumberManager dieSideNumberManager = (DieSideNumberManager)target;
+        DieSideNumber dieSideNumberManager = (DieSideNumber)target;
         if (GUILayout.Button("Snap to mesh"))
         {
             dieSideNumberManager.SnapToMesh();
